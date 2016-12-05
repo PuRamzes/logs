@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>logs</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:growl id="growl" showDetail="true" sticky="true" /> 
+            
+            <p:panel id="filters" header="filters" style="margin-bottom:10px;">
+                <p:messages />
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel for="date" value="Date:" />
+                    <p:calendar id="date" value="#{mainBean.query.date}"/>
+
+                    <p:outputLabel for="name" value="Name:" />
+                    <p:inputText id="name" value="#{mainBean.query.name}"/>
+
+                    <p:outputLabel for="patternMessage" value="PatternMessage:" />
+                    <p:inputText id="patternMessage" value="#{mainBean.query.patternMessage}"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:commandButton value="load" actionListener="#{mainBean.load()}" update=":form:logs  :form:growl"/>
+
+
+            <p:dataTable id="logs" var="log" value="#{mainBean.data}">
+                <p:column headerText="Date">
+                    <h:outputText value="#{log.getDateToString('dd.MM.yyyy')}"/>
+                </p:column>
+
+                <p:column headerText="UserName">
+                    <h:outputText value="#{log.userName}" />
+                </p:column>
+
+                <p:column headerText="Message">
+                    <h:outputText value="#{log.message}" />
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+    </h:body>
+</html>
+
